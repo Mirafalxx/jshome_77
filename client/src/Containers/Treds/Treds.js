@@ -1,36 +1,31 @@
 import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTreds } from "../../store/action";
 import TredsItems from "./TredsItems";
 
 const Treds = () => {
-  const [state, setState] = useState([
-    {
-      description: "TESTING 1",
-      author: "Maxim 1 ",
-      image: "IMG",
-    },
-    {
-      description: "TESTING 2",
-      author: "Maxim 2",
-      image: "IMG",
-    },
-    {
-      description: "TESTING 3",
-      author: "",
-      image: "IMG",
-    },
-  ]);
-  const a = "Hello";
+
+
+  const dispatch = useDispatch();
+  const treds = useSelector(state => state.treds.treds)
+
+  useEffect(() => {
+    dispatch(fetchTreds())
+  }, [dispatch])
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container spacing={1}>
-        {state.map((tred) => (
+        {treds.map((tred) => (
           <TredsItems
+            key={tred.id}
             description={tred.description}
             author={tred.author === "" ? "Anonymous" : tred.author}
           />
         ))}
       </Grid>
+
+
     </Grid>
   );
 };

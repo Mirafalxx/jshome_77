@@ -19,6 +19,9 @@ module.exports = {
     data.push(item);
     this.save();
   },
+  getItem() {
+    return data;
+  },
   save() {
     fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
   },
